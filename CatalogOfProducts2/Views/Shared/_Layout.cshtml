@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/ProductDetail.css")
+   
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Název aplikace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Domů", "Index", "Home")</li>
+                    <li>@Html.ActionLink("O produktu", "About", "Home")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("SignUp", "SignUp", "Home")</li>
+                    <li>@Html.ActionLink("AddProduct", "AddProduct", "Home")</li>
+                    <li>@Html.ActionLink("ViewProducts", "ViewProducts", "Home")</li>
+                    <li>@Html.ActionLink("Compare List", "ShowCompareList", "Home")</li>
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @helper GetTreeMenus(IEnumerable<CatalogOfProducts2.Models.MenuHandler> siteMenu, Nullable<int> parentID)
+    {
+        foreach (var i in siteMenu.Where(a => a.ParentId.Equals(parentID)))
+        {
+            var submenu = siteMenu.Where(a => a.ParentId.Equals(i.MenuId)).Count();
+
+            string action = i.ActionName;
+            string controller = i.ControllerName;
+
+            @*<ul class="nav nav-sidebar">
+                    <li class="treeview"><span class="caret">TEST</span>
+                            <ul class="nested">
+                                <a href="/@i.ControllerName/@i.ActionName">
+                                    <i class="fa fa-angle-double-right"></i> <span>@i.MenuText</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                            </ul>
+                        </li>
+                        @GetTreeMenus(siteMenu, i.MenuId)
+                </ul>*@
+
+        }
+    }
+
+    <div class="container body-content">
+        @{
+            if (Session["MenuList"] != null)
+            {
+                <div class="col-sm-3 col-md-2 sidebar">
+
+                    @GetTreeMenus(Session["MenuList"] as IEnumerable<CatalogOfProducts2.Models.MenuHandler>, 0)
+                    <ul id="myUL">
+                        <li>
+                            <span class="caret">Beverages</span>
+                            <ul class="nested">
+                                <li>Water</li>
+                                <li>Coffee</li>
+                                <li>
+                                    <span class="caret">Tea</span>
+                                    <ul class="nested">
+                                        <li>Black Tea</li>
+                                        <li>White Tea</li>
+                                        <li>
+                                            <span class="caret">Green Tea</span>
+                                            <ul class="nested">
+                                                <li>Sencha</li>
+                                                <li>Gyokuro</li>
+                                                <li>Matcha</li>
+                                                <li>Pi Lo Chun</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+        <div class="col-sm-9 col-md-10 sidebar">
+
+            @RenderBody()
+
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Moje aplikace ASP.NET</p>
+        </footer>
+    </div>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

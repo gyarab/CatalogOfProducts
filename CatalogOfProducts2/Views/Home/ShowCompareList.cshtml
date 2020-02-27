@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CatalogOfProducts.Models.ProductModel>
+
+@{
+    ViewBag.Title = "CompareList";
+}
+
+<h2>CompareList</h2>
+
+
+<table class="table">
+
+
+    
+    @if (Model != null)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+                @foreach (var item in Model)
+                {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                }
+        </tr>
+
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+                @foreach (var item in Model)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                }
+        </tr>
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                @foreach (var item in Model)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                }
+            </tr>
+    }
+
+</table>
