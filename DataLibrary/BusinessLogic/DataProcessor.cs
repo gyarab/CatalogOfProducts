@@ -67,6 +67,11 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.LoadSingleDataById<ProductCategoryModel>(sql, id);
         }
 
+        public static List<ProductModel> LoadLastNProducts(int n)
+        {
+            string sql = @"select top "+n+ " Id_Product as ProductId, ProductName from dbo.Products order by Id_Product desc";
+            return SqlDataAccess.LoadData<ProductModel>(sql);
+        }
 
         public static int CreateProduct(string productName, int categoryId, string description, int price,DateTime date)
         {

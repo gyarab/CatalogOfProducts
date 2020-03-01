@@ -16,9 +16,81 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.category {
+    width: 20%;
+}
+
+.price input {
+    text-align: right;
+}
+
+.addProduct {
+    width: 130px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+ul, #myUL {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+    margin: 10px 0;
+    padding: 0;
+}
+
+/* Style the caret/arrow */
+.tree {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.tree::before {
+        content: "\25B6";
+        color: black;
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.tree-down::before {
+    transform: rotate(90deg);
+}
+
+
+.nested {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.body-content {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.sidebar {
+    height: 100vh;
+    background: #f5f5f5;
+    position: fixed;
+}
+
+.main-content {
+    padding-left: 50px;
 }

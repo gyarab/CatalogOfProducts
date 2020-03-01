@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<CatalogOfProducts2.Models.ProductModel>
 
 @{
-    ViewBag.Title = "ViewProducts";
+    ViewBag.Title = "View Products";
 }
 
 <h2>List of Products</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddProduct")
-</p>
+
 
 @using (Html.BeginForm())
 {
@@ -22,19 +20,17 @@
         <th>
 
         </th>
+        <th>           
+            @Html.ActionLink("Name", "ViewProducts", new { sortOrder = ViewBag.ProductName },new { style = "color:Black;"})
+        </th>
+        
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.ActionLink("Category", "ViewProducts", new { sortOrder = ViewBag.Category },new { style = "color:Black;"})
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.ActionLink("Price", "ViewProducts", new { sortOrder = ViewBag.Price }, new { style = "color:Black;" })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </th>
-        <th></th>
+        <th></th><th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -42,7 +38,7 @@
         <tr>
             <td>
 
-                <a href="@Url.Content("~/Images/"+item.ImagePath)" class="highslide " onclick="return hs.expand(this)">
+                <a href="@Url.Content("~/Images/"+item.ImagePath)" >
                     <img src="@Url.Content("~/Images/"+item.ImagePath)" height="42" width="42" />
                 </a>
                 
@@ -50,15 +46,15 @@
             <td>
                 @Html.ActionLink(item.ProductName,"ProductDetails","Home",new {id = item.ProductId },new { style = "color:Black;"})
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+              
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.ProductPrice) Kč
             </td>
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
             </td>

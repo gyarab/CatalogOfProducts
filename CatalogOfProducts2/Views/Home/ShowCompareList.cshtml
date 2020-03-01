@@ -1,28 +1,24 @@
-﻿@model IEnumerable<CatalogOfProducts.Models.ProductModel>
+﻿@model IEnumerable<CatalogOfProducts2.Models.ProductModel>
 
-@{
-    ViewBag.Title = "CompareList";
-}
 
-<h2>CompareList</h2>
+
+<h2>Compare List</h2>
 
 
 <table class="table">
 
-
-    
     @if (Model != null)
     {
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
-                @foreach (var item in Model)
-                {
+            @foreach (var item in Model)
+            {
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
-                }
+            }
         </tr>
 
 
@@ -30,26 +26,41 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-                @foreach (var item in Model)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                }
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            }
         </tr>
 
 
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductPrice)
-                </th>
-                @foreach (var item in Model)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductPrice)
-                    </td>
-                }
-            </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>                
+                     <input type="button" class="btn btn-default" id="RemoveButton" value="Remove" 
+                     onclick="location.href='@Url.Action("RemoveFromCompareList", "Home",new {id = item.ProductId } )'" />                   
+                </td>
+            }
+        </tr>
+
     }
 
 </table>
+
+

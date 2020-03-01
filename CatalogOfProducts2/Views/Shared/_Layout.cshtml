@@ -19,19 +19,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Název aplikace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Catalog Of Products", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Domů", "Index", "Home")</li>
-                    <li>@Html.ActionLink("O produktu", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("SignUp", "SignUp", "Home")</li>
-                    <li>@Html.ActionLink("AddProduct", "AddProduct", "Home")</li>
-                    <li>@Html.ActionLink("ViewProducts", "ViewProducts", "Home")</li>
+
+                    <li>@Html.ActionLink("View Products", "ViewProducts", "Home")</li>
+                    <li>@Html.ActionLink("Add Product", "AddProduct", "Home")</li>
                     <li>@Html.ActionLink("Compare List", "ShowCompareList", "Home")</li>
-                    @Html.Partial("_LoginPartial")
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
@@ -44,82 +43,66 @@
 
             string action = i.ActionName;
             string controller = i.ControllerName;
-
-            @*<ul class="nav nav-sidebar">
-                    <li class="treeview"><span class="caret">TEST</span>
-                            <ul class="nested">
-                                <a href="/@i.ControllerName/@i.ActionName">
-                                    <i class="fa fa-angle-double-right"></i> <span>@i.MenuText</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                            </ul>
-                        </li>
-                        @GetTreeMenus(siteMenu, i.MenuId)
-                </ul>*@
+            
+            
+                <ul id="myUL">
+                    <li class="treeview">
+                        <span class="tree">
+                            <a href="/@i.ControllerName/@i.ActionName">
+                                @i.MenuText
+                            </a>
+                        </span>
+                        <ul class="nested">
+                            @GetTreeMenus(siteMenu, i.MenuId)
+                        </ul>
+                    </li>
+                </ul>  
+            
 
         }
     }
 
-    <div class="container body-content">
-        @{
-            if (Session["MenuList"] != null)
-            {
-                <div class="col-sm-3 col-md-2 sidebar">
+<div class="container body-content">
+    @*{
+        if (Session["MenuList"] != null)
+        {
+            <div class="col-sm-3 col-md-2 sidebar">
+
+                <div class="nav nav-sidebar">
 
                     @GetTreeMenus(Session["MenuList"] as IEnumerable<CatalogOfProducts2.Models.MenuHandler>, 0)
-                    <ul id="myUL">
-                        <li>
-                            <span class="caret">Beverages</span>
-                            <ul class="nested">
-                                <li>Water</li>
-                                <li>Coffee</li>
-                                <li>
-                                    <span class="caret">Tea</span>
-                                    <ul class="nested">
-                                        <li>Black Tea</li>
-                                        <li>White Tea</li>
-                                        <li>
-                                            <span class="caret">Green Tea</span>
-                                            <ul class="nested">
-                                                <li>Sencha</li>
-                                                <li>Gyokuro</li>
-                                                <li>Matcha</li>
-                                                <li>Pi Lo Chun</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+
                 </div>
-            }
+
+
+            </div>
         }
-        <div class="col-sm-9 col-md-10 sidebar">
+    }*@
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
 
-            @RenderBody()
+        @RenderBody()
 
-        </div>
-        <hr />
+    </div>
+    @*<hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Moje aplikace ASP.NET</p>
-        </footer>
-    </div>
+        </footer>*@
+</div>
 
-    <script>
-        var toggler = document.getElementsByClassName("caret");
-        var i;
+            <script>
+                var toggler = document.getElementsByClassName("tree");
+                var i;
 
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function () {
-                this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("caret-down");
-            });
-        }
-    </script>
+                for (i = 0; i < toggler.length; i++) {
+                    toggler[i].addEventListener("click", function () {
+                        this.parentElement.querySelector(".nested").classList.toggle("active");
+                        this.classList.toggle("tree-down");
+                    });
+                }
+            </script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </body>
+        </html>

@@ -15,7 +15,22 @@ namespace CatalogOfProducts2.Controllers
     {
         public ActionResult Index()
         {
-            var dbMenu = LoadMenu();
+            var lastNProduct = LoadLastNProducts(3);
+            List<ProductModel> lastNlist = new List<ProductModel>();
+
+            foreach (var row in lastNProduct)
+            {
+                var extractedImage = LoadImage(row.ProductId);
+                lastNlist.Add(new ProductModel
+                {
+                    ProductId = row.ProductId,
+                    ProductName = row.ProductName,
+                    ImagePath = extractedImage.ImagePath
+                }
+                );
+            }
+
+           /* var dbMenu = LoadMenu();
             List<MenuHandler> MenuList = new List<MenuHandler>();
             foreach (var row in dbMenu)
             {
@@ -31,16 +46,9 @@ namespace CatalogOfProducts2.Controllers
 
             }
 
-            Session["MenuList"] = MenuList;
+            Session["MenuList"] = MenuList;*/
 
-            return View(MenuList);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View(lastNlist);
         }
 
         public ActionResult Contact()
@@ -49,30 +57,11 @@ namespace CatalogOfProducts2.Controllers
 
             return View();
         }
-        public ActionResult SignUp()
-        {
-            ViewBag.Message = "Sign Up";
 
-            return View();
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SignUp(UserModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                CreateUser(model.FirstName, model.LastName, model.EmailAddress, model.PhoneNumber, model.Password);
-
-                return RedirectToAction("Index");
-            }
-
-            return View();
-        }
-        
+        [Authorize]
         public ActionResult AddProduct()
         {
+            
             var categories = LoadCategories();
             List<ProductModel> categoryList = new List<ProductModel>();
 
@@ -92,6 +81,7 @@ namespace CatalogOfProducts2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
+        [Authorize]
         public ActionResult AddProduct(ProductModel model, HttpPostedFileBase file)
         {       
             if (ModelState.IsValid)
@@ -108,23 +98,26 @@ namespace CatalogOfProducts2.Controllers
                     int productId = CreateProduct(model.ProductName,CategoryId, model.Description, model.ProductPrice, date);
 
                     SaveImagePath(filePath, productId);
-
+                    ModelState.Clear();
                 }
-
-                return RedirectToAction("ViewProducts");               
+                
+                return RedirectToAction("ViewProducts");
+            }
+            else { 
+                return View();
             }
 
-
-            return View();
         }
 
-        public ActionResult ViewProducts(string searchString)
+        public ActionResult ViewProducts(string searchString, string sortOrder)
         {
-            ViewBag.Message = "Employee Sign Up";
+            ViewBag.ProductName = String.IsNullOrEmpty(sortOrder) ? "productName_desc" : "";
+            ViewBag.Category = sortOrder == "Category" ? "category_asc" : "Category";
+            ViewBag.Price = sortOrder == "Price" ? "price_asc" : "Price";
             var data = LoadProducts();
 
             List<ProductModel> products = new List<ProductModel>();
-
+            
             foreach (var row in data)
             {
                 var extractedImage = LoadImage(row.ProductId);
@@ -155,9 +148,27 @@ namespace CatalogOfProducts2.Controllers
 
                 return View(answer.ToList());
             }
+            
+            switch (sortOrder)
+            {
+                case "productName_desc":
+                    var answer1 =products.OrderByDescending(s => s.ProductName);
+                    return View(answer1.ToList());    
+                    
 
+                case "category_asc":
+                    var answer2 = products.OrderBy(s => s.Category);
+                    return View(answer2.ToList());
 
-            return View(products);
+                case "price_asc":
+                    var answer3 = products.OrderBy(s => s.ProductPrice);
+                    return View(answer3.ToList());
+
+                default:
+                   var answer = products.OrderBy(s => s.ProductName);
+                    return View(answer.ToList());
+            }
+
         }
 
         public ActionResult ProductDetails()
@@ -197,6 +208,7 @@ namespace CatalogOfProducts2.Controllers
             return View(product);
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             var extractedData = LoadProduct(id);
@@ -213,7 +225,7 @@ namespace CatalogOfProducts2.Controllers
 
             return View(product);
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(ProductModel model, int? id)
         {
@@ -222,7 +234,7 @@ namespace CatalogOfProducts2.Controllers
             return RedirectToAction("ViewProducts");
 
         }
-
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -245,7 +257,7 @@ namespace CatalogOfProducts2.Controllers
             return View(product);
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -289,7 +301,7 @@ namespace CatalogOfProducts2.Controllers
                 else
                 {
                     comparedProducts = (List<ProductModel>)TempData["CompareList"];
-                    if (comparedProducts != null && comparedProducts.Count < 3)
+                    if (comparedProducts != null && comparedProducts.Count < 3 && comparedProducts.Contains(product)==false)
                     {
                         comparedProducts.Add(product);
                         
@@ -317,17 +329,21 @@ namespace CatalogOfProducts2.Controllers
             return View();
         }
 
-        //TODO dodelat mazani z listu
-        public ActionResult RemoveFromCompareList(ProductModel product, List<ProductModel> compareList)
+       
+        public ActionResult RemoveFromCompareList(int? id)
         {
-            if (compareList.Contains(product))
+            List<ProductModel> comparedProducts = TempData["CompareList"] as List<ProductModel>;
+            ProductModel removedProduct = comparedProducts.Find(x => x.ProductId == id);
+
+
+            if (comparedProducts != null&&comparedProducts.Count>0)
             {
-                compareList.Remove(product);
+                comparedProducts.Remove(removedProduct);
+                
             }
-
             return RedirectToAction("ShowCompareList");
-        }
 
+        }
 
     }
 

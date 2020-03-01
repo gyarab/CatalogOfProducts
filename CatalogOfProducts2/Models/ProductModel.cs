@@ -24,6 +24,7 @@ namespace CatalogOfProducts2.Models
         public string Category { get; set; }
 
         [Display(Name = "Price")]
+        
         [Required(ErrorMessage = "Price required.")]
         public int ProductPrice { get; set; }
 

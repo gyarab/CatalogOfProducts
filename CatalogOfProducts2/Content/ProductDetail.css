@@ -1,0 +1,27 @@
+﻿.row {
+    margin: 20px;
+}
+
+    .row img {
+        float: left;
+        margin-right: 40px;
+    }
+
+    .row dl {
+        float: left;
+    }
+
+.header {
+    margin: 0 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .footer p {
+        margin: 0 20px;
+        display: inline-flex;
+        align-items: center;
+    }

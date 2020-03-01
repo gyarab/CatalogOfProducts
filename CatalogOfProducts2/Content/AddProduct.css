@@ -1,0 +1,24 @@
+﻿.category {
+    width: 20%;
+}
+
+.price input {
+    text-align: right;
+}
+
+.addProduct {
+    width: 130px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 6px;
+}
