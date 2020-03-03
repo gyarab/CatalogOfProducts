@@ -15,26 +15,7 @@ namespace DataLibrary.BusinessLogic
             string sql =@"select* from dbo.Menu";
 
             return SqlDataAccess.LoadData<MenuHandler>(sql);
-        }
-        public static int CreateUser(string firstName, string lastName, string emailAddress, int phoneNumber, string password)
-        {
-            UserModel data = new UserModel
-            {
-               
-                FirstName = firstName,
-                LastName = lastName,
-                EmailAddress = emailAddress,
-                PhoneNumber = phoneNumber,
-                Password = password
-            };
-
-            string sql = @"insert into dbo.Users(FirstName, LastName, EmailAddress, PhoneNumber, Password)
-                            values (@FirstName, @LastName, @EmailAddress, @PhoneNumber, @Password);";
-
-            return SqlDataAccess.SaveData(sql, data);
-        }
-
-
+        }       
 
         public static List<ProductModel> LoadProducts()
        {

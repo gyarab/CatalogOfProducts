@@ -54,14 +54,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductPrice) Kč
             </td>
-            
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
-            </td>
-              <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-            </td>
-
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                </td>
+            }
         </tr>
     }
 

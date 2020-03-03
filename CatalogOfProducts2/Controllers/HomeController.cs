@@ -109,6 +109,46 @@ namespace CatalogOfProducts2.Controllers
 
         }
 
+        public ActionResult AddCategories()
+        {
+            var extractedCategories = LoadCategories();
+            List<ProductCategoryModel> listOfCategories = new List<ProductCategoryModel>();
+
+            foreach(var row in extractedCategories)
+            {
+                listOfCategories.Add(new ProductCategoryModel
+                {   
+                    CategoryId = row.CategoryId,
+                    CategoryName = row.CategoryName
+                });
+            }
+
+            ViewBag.ListOfCategories = listOfCategories;
+
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Authorize]
+        public ActionResult AddCategories(ProductCategoryModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CreateCategory(model.CategoryName);
+                ModelState.Clear();
+            }
+            else
+            {
+                return View();
+            }
+
+            return View();
+        }
+        
+
         public ActionResult ViewProducts(string searchString, string sortOrder)
         {
             ViewBag.ProductName = String.IsNullOrEmpty(sortOrder) ? "productName_desc" : "";
@@ -181,7 +221,7 @@ namespace CatalogOfProducts2.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+               return  RedirectToAction("Index");
             }
 
             var extractedData = LoadProduct(id);

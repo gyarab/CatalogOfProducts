@@ -11,18 +11,19 @@
 </div>
 
 <div class="row">
+    <h2>Newly added:</h2>
     @foreach (var item in Model)
     {
         <div class="col-md-4">
-            <h2>Newly added!</h2>
-            <h3>                
-                @Html.ActionLink(item.ProductName, "ProductDetails", "Home", new { id = item.ProductId }, new { style = "color:Black;" })              
-            </h3> 
-            <p>     
-                <img src="@Url.Content("~/Images/"+item.ImagePath)" height="200" width="200" onclick="location.href='@Url.Action("ProductDetails", "Home",new {id = item.ProductId })'" />               
+
+            <h3>
+                @Html.ActionLink(item.ProductName, "ProductDetails", "Home", new { id = item.ProductId }, new { style = "color:Black;" })
+            </h3>
+            <p>
+                <img src="@Url.Content("~/Images/"+item.ImagePath)" height="200" width="200" onclick="location.href='@Url.Action("ProductDetails", "Home",new {id = item.ProductId })'" />
             </p>
-                       
-           
+
+
         </div>
     }
 

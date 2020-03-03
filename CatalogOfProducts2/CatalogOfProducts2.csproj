@@ -249,6 +249,7 @@
     <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\Home\ShowCompareList.cshtml" />
     <Content Include="Views\Home\ViewProducts.cshtml" />
+    <Content Include="Views\Home\AddCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
