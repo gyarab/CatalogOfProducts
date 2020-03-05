@@ -20,17 +20,18 @@
         <th>
 
         </th>
-        <th>           
-            @Html.ActionLink("Name", "ViewProducts", new { sortOrder = ViewBag.ProductName },new { style = "color:Black;"})
-        </th>
-        
         <th>
-            @Html.ActionLink("Category", "ViewProducts", new { sortOrder = ViewBag.Category },new { style = "color:Black;"})
+            @Html.ActionLink("Name", "ViewProducts", new { sortOrder = ViewBag.ProductName }, new { style = "color:Black;" })
+        </th>
+
+        <th>
+            @Html.ActionLink("Category", "ViewProducts", new { sortOrder = ViewBag.Category }, new { style = "color:Black;" })
         </th>
         <th>
             @Html.ActionLink("Price", "ViewProducts", new { sortOrder = ViewBag.Price }, new { style = "color:Black;" })
         </th>
-        <th></th><th></th>
+        <th></th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -38,15 +39,15 @@
         <tr>
             <td>
 
-                <a href="@Url.Content("~/Images/"+item.ImagePath)" >
+                <a href="@Url.Content("~/Images/"+item.ImagePath)">
                     <img src="@Url.Content("~/Images/"+item.ImagePath)" height="42" width="42" />
                 </a>
-                
+
             </td>
             <td>
-                @Html.ActionLink(item.ProductName,"ProductDetails","Home",new {id = item.ProductId },new { style = "color:Black;"})
+                @Html.ActionLink(item.ProductName, "ProductDetails", "Home", new { id = item.ProductId }, new { style = "color:Black;" })
             </td>
-              
+
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
@@ -63,7 +64,12 @@
                     @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
                 </td>
             }
+            else
+            {
+                <th></th>
+                <th></th>
+            }
         </tr>
-    }
+     }
 
 </table>

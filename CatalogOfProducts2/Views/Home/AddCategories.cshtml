@@ -38,22 +38,20 @@
             </strong>           
         </th>
     </tr>
-
-    @foreach (var category in ViewBag.ListOfCategories)
+    @if (ViewBag.ListOfCategories != null)
     {
-        <tr>
-            
-            <td>
-                @category.CategoryName
-            </td>
-        </tr>
+        foreach (var category in ViewBag.ListOfCategories)
+        {
+            <tr>    
+                <td>               
+                    <a onclick="location.href='@Url.Action("ShowProductsByCategory", "Home", new { id = category.CategoryId })'"> @category.CategoryName</a>
+                </td>
+            </tr>
+        }   
     }
-
 </table>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

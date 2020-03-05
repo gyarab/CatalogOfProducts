@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CatalogOfProducts2.Models.ProductModel>
+
+@{
+    ViewBag.Title = "ShowProductsByCategory";
+}
+
+    <h2></h2>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Content("~/Images/"+item.ImagePath)">
+                <img src="@Url.Content("~/Images/"+item.ImagePath)" height="42" width="42" />
+            </a>
+        </td>
+
+        <td>
+            @Html.ActionLink(item.ProductName, "ProductDetails", "Home", new { id = item.ProductId }, new { style = "color:Black;" })
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+    </tr>
+}
+
+</table>

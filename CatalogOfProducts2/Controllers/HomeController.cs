@@ -30,7 +30,7 @@ namespace CatalogOfProducts2.Controllers
                 );
             }
 
-           /* var dbMenu = LoadMenu();
+           var dbMenu = LoadMenu();
             List<MenuHandler> MenuList = new List<MenuHandler>();
             foreach (var row in dbMenu)
             {
@@ -46,15 +46,13 @@ namespace CatalogOfProducts2.Controllers
 
             }
 
-            Session["MenuList"] = MenuList;*/
+            Session["MenuList"] = MenuList;
 
             return View(lastNlist);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -62,18 +60,7 @@ namespace CatalogOfProducts2.Controllers
         public ActionResult AddProduct()
         {
             
-            var categories = LoadCategories();
-            List<ProductModel> categoryList = new List<ProductModel>();
-
-            foreach(var row in categories)
-            {
-                categoryList.Add(new ProductModel{ 
-                    CategoryId = row.CategoryId,
-                    Category = row.CategoryName
-                   }
-                );
-            }
-            ViewBag.list = categoryList;
+            ViewBag.list = LoadCategoriesForAddProductView();
 
             return View();
         }
@@ -108,31 +95,55 @@ namespace CatalogOfProducts2.Controllers
             }
 
         }
+        
+       
 
-        public ActionResult AddCategories()
+        [NonAction]
+        public List<ProductCategoryModel> LoadCategoriesForAddCategoriesView()
         {
             var extractedCategories = LoadCategories();
             List<ProductCategoryModel> listOfCategories = new List<ProductCategoryModel>();
 
-            foreach(var row in extractedCategories)
+            foreach (var row in extractedCategories)
             {
                 listOfCategories.Add(new ProductCategoryModel
-                {   
+                {
                     CategoryId = row.CategoryId,
                     CategoryName = row.CategoryName
                 });
             }
+            return listOfCategories;
+        }
+        [NonAction]
+        public List<ProductModel> LoadCategoriesForAddProductView()
+        {
+            var categories = LoadCategories();
+            List<ProductModel> categoryList = new List<ProductModel>();
 
-            ViewBag.ListOfCategories = listOfCategories;
+            foreach (var row in categories)
+            {
+                categoryList.Add(new ProductModel
+                {
+                    CategoryId = row.CategoryId,
+                    Category = row.CategoryName
+                }
+                );
+            }
+
+            return categoryList;
+        }
+
+        public ActionResult AddCategories()
+        {
+            ViewBag.ListOfCategories = LoadCategoriesForAddCategoriesView();
 
             return View();
         }
 
-
-
+        //TODO opravit formular
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
+        [Authorize]
         public ActionResult AddCategories(ProductCategoryModel model)
         {
             if (ModelState.IsValid)
@@ -142,12 +153,46 @@ namespace CatalogOfProducts2.Controllers
             }
             else
             {
+                ViewBag.ListOfCategories = LoadCategoriesForAddCategoriesView();
                 return View();
             }
+            ViewBag.ListOfCategories = LoadCategoriesForAddCategoriesView();
 
             return View();
         }
-        
+
+        public ActionResult ShowProductsByCategory(int? id)
+        {
+            if (id != null)
+            {
+                var categories = LoadProductsByCategory(id);
+                List<ProductModel> productsByCategory = new List<ProductModel>();
+
+                foreach(var row in categories)
+                {
+                    var extractedImage = LoadImage(row.ProductId);
+                    var extractedCategory = LoadCategory(row.CategoryId);
+                    productsByCategory.Add(new ProductModel
+                    {
+                        ProductId = row.ProductId,
+                        ProductName = row.ProductName,
+                        Category = extractedCategory.CategoryName,
+                        Description = row.Description,
+                        ProductPrice = row.ProductPrice,
+                        ImagePath = extractedImage.ImagePath
+
+                    });
+                }
+
+                return View(productsByCategory);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+           
+        }
+
 
         public ActionResult ViewProducts(string searchString, string sortOrder)
         {
@@ -262,24 +307,29 @@ namespace CatalogOfProducts2.Controllers
                 ProductPrice = extractedData.ProductPrice
 
             };
+           
+            ViewBag.ListOfCategories = LoadCategoriesForAddProductView();
 
             return View(product);
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult Edit(ProductModel model, int? id)
         {
-            SaveEditedProduct(id, model.ProductName, model.Description, model.ProductPrice);
+            int CategoryId = Int32.Parse(model.Category);
+            SaveEditedProduct(id, model.ProductName,CategoryId ,model.Description, model.ProductPrice);
 
             return RedirectToAction("ViewProducts");
 
         }
+
         [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
 
             var extractedData = LoadProduct(id);

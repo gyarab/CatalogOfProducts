@@ -54,6 +54,12 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.LoadData<ProductModel>(sql);
         }
 
+        public static List<ProductModel> LoadProductsByCategory(int? id)
+        {
+            string sql = @"select  Id_Product as ProductId, ProductName, CategoryId, Description, ProductPrice from dbo.Products where CategoryId =" + id;
+            return SqlDataAccess.LoadData<ProductModel>(sql);
+        }
+
         public static int CreateProduct(string productName, int categoryId, string description, int price,DateTime date)
         {
             ProductModel data = new ProductModel
@@ -99,18 +105,19 @@ namespace DataLibrary.BusinessLogic
         }
 
        
-        public static int SaveEditedProduct(int? id, string productName, string description, int price)
+        public static int SaveEditedProduct(int? id, string productName,int categoryId, string description, int price)
         {
             ProductModel data = new ProductModel
             {   
                 ProductId = id,
                 ProductName = productName,
+                CategoryId = categoryId,
                 Description = description,
                 ProductPrice = price,
 
             };
 
-            string sql = @"update dbo.Products set ProductName=@ProductName, Description=@Description,
+            string sql = @"update dbo.Products set ProductName=@ProductName,CategoryId=@CategoryId, Description=@Description,
             ProductPrice=@ProductPrice where Id_Product=@ProductId ";
             return SqlDataAccess.SaveData(sql, data);
         }
