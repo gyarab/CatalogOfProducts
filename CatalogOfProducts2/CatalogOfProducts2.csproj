@@ -251,6 +251,7 @@
     <Content Include="Views\Home\ViewProducts.cshtml" />
     <Content Include="Views\Home\AddCategories.cshtml" />
     <Content Include="Views\Home\ShowProductsByCategory.cshtml" />
+    <Content Include="Views\Home\ViewCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

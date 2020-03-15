@@ -5,8 +5,7 @@
 }
 
 <div class="header">
-    <h2>ProductDetails</h2>
-    <h4>ProductModel</h4>
+    <h2>@Model.ProductName</h2>  
 </div>
 
 <div>
@@ -25,16 +24,6 @@
            
             
             <dl class="dl-vertical">
-
-               
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ProductName)
-                </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.Description)
@@ -64,15 +53,20 @@
     </div>
 </div>
 
+
 <div class="footer">
     <p>
         @Html.ActionLink("Show List", "ViewProducts")
     </p>
-    <input type="button" value="Add To Compare" onclick="location.href='@Url.Action("AddToCompareList", "Home",new {id = Model.ProductId })', myFunction()" class="btn btn-default " />
+
+    <p>
+        @Html.ActionLink("Add To Compare", "AddToCompareList", new { id = Model.ProductId },new { onclick = "return myFunction();"})
+    </p>
+
+    <script>
+        function myFunction() {
+            alert("@Model.ProductName added to compare list.");
+        }
+    </script>
 </div>
 
-<script>
-    function myFunction() {
-        alert("Product added.");
-    }
-</script>

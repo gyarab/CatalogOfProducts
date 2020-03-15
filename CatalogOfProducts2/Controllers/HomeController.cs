@@ -95,8 +95,6 @@ namespace CatalogOfProducts2.Controllers
             }
 
         }
-        
-       
 
         [NonAction]
         public List<ProductCategoryModel> LoadCategoriesForAddCategoriesView()
@@ -140,7 +138,7 @@ namespace CatalogOfProducts2.Controllers
             return View();
         }
 
-        //TODO opravit formular
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -153,21 +151,28 @@ namespace CatalogOfProducts2.Controllers
             }
             else
             {
-                ViewBag.ListOfCategories = LoadCategoriesForAddCategoriesView();
+                
                 return View();
             }
-            ViewBag.ListOfCategories = LoadCategoriesForAddCategoriesView();
+            
 
             return View();
         }
 
-        public ActionResult ShowProductsByCategory(int? id)
+        public ActionResult ViewCategories()
+        {
+            var categories = LoadCategoriesForAddCategoriesView();
+
+            return View(categories);
+        }
+
+        public ActionResult ShowProductsByCategory(int? id, string name)
         {
             if (id != null)
             {
                 var categories = LoadProductsByCategory(id);
                 List<ProductModel> productsByCategory = new List<ProductModel>();
-
+                
                 foreach(var row in categories)
                 {
                     var extractedImage = LoadImage(row.ProductId);
@@ -181,8 +186,11 @@ namespace CatalogOfProducts2.Controllers
                         ProductPrice = row.ProductPrice,
                         ImagePath = extractedImage.ImagePath
 
-                    });
+                    });                  
                 }
+
+                ViewBag.title = name;
+                
 
                 return View(productsByCategory);
             }

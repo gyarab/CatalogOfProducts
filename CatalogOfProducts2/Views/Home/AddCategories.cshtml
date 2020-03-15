@@ -1,7 +1,7 @@
 ﻿@model CatalogOfProducts2.Models.ProductCategoryModel
 
 
-<h2>Add Category</h2>
+<h2>New Category</h2>
 
 
 @using (Html.BeginForm())
@@ -23,35 +23,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add Category" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<table class="table">
-
-    <tr>
-        <th>
-            <strong>
-                Categories:
-            </strong>           
-        </th>
-    </tr>
-    @if (ViewBag.ListOfCategories != null)
-    {
-        foreach (var category in ViewBag.ListOfCategories)
-        {
-            <tr>    
-                <td>               
-                    <a onclick="location.href='@Url.Action("ShowProductsByCategory", "Home", new { id = category.CategoryId })'"> @category.CategoryName</a>
-                </td>
-            </tr>
-        }   
-    }
-</table>
-
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

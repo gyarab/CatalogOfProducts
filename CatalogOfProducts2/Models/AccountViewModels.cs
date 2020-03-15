@@ -29,11 +29,11 @@ namespace CatalogOfProducts2.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Kód")]
+        [Display(Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Chcete zapamatovat tento prohlížeč?")]
+        [Display(Name = "Do you want to remember this browser?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -58,7 +58,7 @@ namespace CatalogOfProducts2.Models
         [Display(Name = "Heslo")]
         public string Password { get; set; }
 
-        [Display(Name = "Zapamatovat uživatele")]
+        [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
     }
 
@@ -70,14 +70,14 @@ namespace CatalogOfProducts2.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musí obsahovat alespoň {2} znaků.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} must contain at least {2} characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Heslo")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Potvrzení hesla")]
-        [Compare("Password", ErrorMessage = "Heslo a potvrzení hesla se neshodují.")]
+        [Compare("Password", ErrorMessage = "Passwords are not identical.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -85,18 +85,18 @@ namespace CatalogOfProducts2.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "E-mail")]
+        [Display(Name = "e-mail")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musí obsahovat alespoň {2} znaků.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} must contain at least {2} characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Heslo")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Potvrzení hesla")]
-        [Compare("Password", ErrorMessage = "Heslo a potvrzení hesla se neshodují.")]
+        [Display(Name = "Password confirmation")]
+        [Compare("Password", ErrorMessage = "Passwords are not identical.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

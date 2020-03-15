@@ -25,14 +25,16 @@
                 <ul class="nav navbar-nav">
 
                     <li>@Html.ActionLink("View Products", "ViewProducts", "Home")</li>
+                    <li>@Html.ActionLink("View Categories", "ViewCategories", "Home")</li>
+
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Add Product", "AddProduct", "Home")</li>
-                        <li>@Html.ActionLink("Add Category", "AddCategories", "Home")</li>
+                        <li>@Html.ActionLink("New Product", "AddProduct", "Home")</li>
+                        <li>@Html.ActionLink("New Category", "AddCategories", "Home")</li>
                     }
                     <li>@Html.ActionLink("Compare List", "ShowCompareList", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

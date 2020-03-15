@@ -7,7 +7,7 @@
 }
 
 .addProduct {
-    width: 130px;
+    width: 80px;
 }
 
 input[type="file"] {
@@ -21,4 +21,10 @@ input[type="file"] {
     cursor: pointer;
     font-weight: 500;
     border-radius: 6px;
+}
+
+.glyphicon glyphicon-asterisk star {
+    position: sticky;
+    color: #da1313;
+    font-size: 10px;
 }
