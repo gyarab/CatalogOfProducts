@@ -53,12 +53,13 @@
                 <ul id="myUL">
                     <li class="treeview">
                         <span class="tree">
-                            <a href="/@i.ControllerName/@i.ActionName">
+                            <a onclick="location.href='@Url.Action(@i.ActionName, @i.ControllerName, new { id = i.CategoryId})'">
                                 @i.MenuText
                             </a>
                         </span>
-                        <ul class="nested">
-                            @GetTreeMenus(siteMenu, i.MenuId)
+
+                        <ul class="nested">                        
+                                @GetTreeMenus(siteMenu, i.MenuId)                         
                         </ul>
                     </li>
                 </ul>  

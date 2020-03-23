@@ -13,7 +13,6 @@ namespace DataLibrary.Models
         public int ParentId { get; set; }
         public string ControllerName { get; set; }
         public string ActionName { get; set; }
-
-
+        public int? CategoryId { get; set; }
     }
 }

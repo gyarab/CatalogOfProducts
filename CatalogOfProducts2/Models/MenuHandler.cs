@@ -15,6 +15,8 @@ namespace CatalogOfProducts2.Models
         public string ActionName { get; set; }
         public bool IsChecked { get; set; }
         public List<MenuHandler> Menus { get; set; }
+        public int? CategoryId { get; set; }
+
 
     }
 }

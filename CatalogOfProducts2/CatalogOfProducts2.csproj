@@ -197,8 +197,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\IMG_0272.JPG" />
+    <Content Include="Images\IMG_20200229_173640.jpg" />
+    <Content Include="Images\IMG_20200229_173651.jpg" />
+    <Content Include="Images\IMG_20200229_173708.jpg" />
+    <Content Include="Images\IMG_20200229_173743.jpg" />
+    <Content Include="Images\IMG_20200229_173839_1.jpg" />
+    <Content Include="Images\IMG_20200229_173936_1.jpg" />
+    <Content Include="Images\IMG_20200229_173949.jpg" />
+    <Content Include="Images\IMG_20200229_174004.jpg" />
+    <Content Include="Images\IMG_20200229_174014.jpg" />
+    <Content Include="Images\IMG_20200229_174031_1.jpg" />
+    <Content Include="Images\IMG_20200229_174202.jpg" />
+    <Content Include="Images\IMG_20200229_174513.jpg" />
+    <Content Include="Images\IMG_20200229_174622.jpg" />
+    <Content Include="Images\IMG_20200229_174832.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\RP2020 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -255,7 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

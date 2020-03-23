@@ -89,6 +89,27 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.SaveDataGiveID(sql, data);
         }
 
+        public static int CreateCategoryMenuRow(string menuText,int? categoryId )
+        {
+            string actionName = "ShowProductsByCategory";
+            int parentId = 1;
+            string controllerName = "Home";
+
+            MenuHandler data = new MenuHandler
+            {
+                MenuText = menuText,
+                ParentId = parentId,
+                ControllerName = controllerName,
+                ActionName = actionName,
+                CategoryId = categoryId
+
+            };
+
+            string sql = @"insert into dbo.Menu(MenuText, ParentId, ControllerName, ActionName, CategoryId)
+                            values (@MenuText, @ParentId, @ControllerName, @ActionName, @CategoryId)";
+            return SqlDataAccess.SaveData<MenuHandler>(sql,data);
+        }
+
         public static int SaveImagePath(string imagePath, int productId)
         {
             

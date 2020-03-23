@@ -40,7 +40,8 @@ namespace CatalogOfProducts2.Controllers
                     MenuText = row.MenuText,
                     ParentId = row.ParentId,
                     ControllerName = row.ControllerName,
-                    ActionName = row.ActionName
+                    ActionName = row.ActionName,
+                    CategoryId = row.CategoryId
 
                 });
 
@@ -146,7 +147,8 @@ namespace CatalogOfProducts2.Controllers
         {
             if (ModelState.IsValid)
             {
-                CreateCategory(model.CategoryName);
+                int? categoryId = CreateCategory(model.CategoryName);
+                CreateCategoryMenuRow(model.CategoryName, categoryId);
                 ModelState.Clear();
             }
             else
@@ -172,7 +174,12 @@ namespace CatalogOfProducts2.Controllers
             {
                 var categories = LoadProductsByCategory(id);
                 List<ProductModel> productsByCategory = new List<ProductModel>();
-                
+                if(name == null)
+                {
+                    var category = LoadCategory(id);
+                    name = category.CategoryName;
+                }
+
                 foreach(var row in categories)
                 {
                     var extractedImage = LoadImage(row.ProductId);
