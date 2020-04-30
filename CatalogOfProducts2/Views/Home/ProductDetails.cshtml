@@ -23,33 +23,41 @@
     <div class="row">
            
             
-            <dl class="dl-vertical">
+        <dl class="dl-vertical">
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Category)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Category)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.ProductPrice)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.ProductPrice) Kč
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ProductPrice) Kč
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UrlLink)
+            </dt>
 
-            </dl>
+            <dd>                
+                <a href=@Model.UrlLink> @Model.UrlLink</a>
+            </dd>
+
+
+        </dl>
     </div>
 </div>
 

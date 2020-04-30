@@ -1,4 +1,4 @@
-﻿using DataLibrary.DataAccess;
+﻿    using DataLibrary.DataAccess;
 using DataLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace DataLibrary.BusinessLogic
 
         public static List<ProductModel> LoadProducts()
        {
-            string sql = @"select Id_Product as ProductId, ProductName, CategoryId, Description, ProductPrice from dbo.Products";
+            string sql = @"select Id_Product as ProductId, ProductName, CategoryId, Description, ProductPrice, UrlLink from dbo.Products";
            
            return SqlDataAccess.LoadData<ProductModel>(sql);
        }
@@ -56,11 +56,11 @@ namespace DataLibrary.BusinessLogic
 
         public static List<ProductModel> LoadProductsByCategory(int? id)
         {
-            string sql = @"select  Id_Product as ProductId, ProductName, CategoryId, Description, ProductPrice from dbo.Products where CategoryId =" + id;
+            string sql = @"select  Id_Product as ProductId, ProductName, CategoryId, Description, ProductPrice, UrlLink from dbo.Products where CategoryId =" + id;
             return SqlDataAccess.LoadData<ProductModel>(sql);
         }
 
-        public static int CreateProduct(string productName, int categoryId, string description, int price,DateTime date)
+        public static int CreateProduct(string productName, int categoryId, string description, int price,DateTime date, string urlLink)
         {
             ProductModel data = new ProductModel
             {
@@ -68,11 +68,12 @@ namespace DataLibrary.BusinessLogic
                 CategoryId = categoryId,
                 Description = description,
                 ProductPrice = price,               
-                Date = date
+                Date = date,
+                UrlLink = urlLink
             };
 
-            string sql = @"insert into dbo.Products(ProductName, CategoryId, Description, ProductPrice, Published)
-                            values (@ProductName, @CategoryId, @Description, @ProductPrice, @Date); SELECT CAST(SCOPE_IDENTITY() as int)";
+            string sql = @"insert into dbo.Products(ProductName, CategoryId, Description, ProductPrice, Published, UrlLink)
+                            values (@ProductName, @CategoryId, @Description, @ProductPrice, @Date, @UrlLink); SELECT CAST(SCOPE_IDENTITY() as int)";
 
             return SqlDataAccess.SaveDataGiveID(sql, data);
         }
@@ -126,7 +127,7 @@ namespace DataLibrary.BusinessLogic
         }
 
        
-        public static int SaveEditedProduct(int? id, string productName,int categoryId, string description, int price)
+        public static int SaveEditedProduct(int? id, string productName,int categoryId, string description, int price, string urlLink)
         {
             ProductModel data = new ProductModel
             {   
@@ -135,11 +136,12 @@ namespace DataLibrary.BusinessLogic
                 CategoryId = categoryId,
                 Description = description,
                 ProductPrice = price,
+                UrlLink = urlLink
 
             };
 
             string sql = @"update dbo.Products set ProductName=@ProductName,CategoryId=@CategoryId, Description=@Description,
-            ProductPrice=@ProductPrice where Id_Product=@ProductId ";
+            ProductPrice=@ProductPrice, UrlLink=@UrlLink where Id_Product=@ProductId ";
             return SqlDataAccess.SaveData(sql, data);
         }
 

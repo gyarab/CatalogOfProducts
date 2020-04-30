@@ -83,7 +83,7 @@ namespace CatalogOfProducts2.Controllers
                     date.ToString("dd/MM/yyyy");
 
                     int CategoryId = Int32.Parse(model.Category);
-                    int productId = CreateProduct(model.ProductName,CategoryId, model.Description, model.ProductPrice, date);
+                    int productId = CreateProduct(model.ProductName,CategoryId, model.Description, model.ProductPrice, date, model.UrlLink);
 
                     SaveImagePath(filePath, productId);
                     ModelState.Clear();
@@ -296,7 +296,8 @@ namespace CatalogOfProducts2.Controllers
                 Category = extractedCategory.CategoryName,
                 Description = extractedData.Description,
                 ProductPrice = extractedData.ProductPrice,
-                ImagePath = extractedImage.ImagePath
+                ImagePath = extractedImage.ImagePath,
+                UrlLink = extractedData.UrlLink
 
             };
 
@@ -333,7 +334,7 @@ namespace CatalogOfProducts2.Controllers
         public ActionResult Edit(ProductModel model, int? id)
         {
             int CategoryId = Int32.Parse(model.Category);
-            SaveEditedProduct(id, model.ProductName,CategoryId ,model.Description, model.ProductPrice);
+            SaveEditedProduct(id, model.ProductName,CategoryId ,model.Description, model.ProductPrice, model.UrlLink);
 
             return RedirectToAction("ViewProducts");
 
@@ -406,9 +407,13 @@ namespace CatalogOfProducts2.Controllers
                 else
                 {
                     comparedProducts = (List<ProductModel>)TempData["CompareList"];
-                    if (comparedProducts != null && comparedProducts.Count < 3 && comparedProducts.Contains(product)==false)
+                    if (comparedProducts != null && comparedProducts.Count < 3 )
                     {
-                        comparedProducts.Add(product);
+                        if(comparedProducts.Contains(product) == false)
+                        {
+                            comparedProducts.Add(product);
+                        }
+                        
                         
                     }
                 }

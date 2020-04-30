@@ -30,7 +30,8 @@ namespace CatalogOfProducts2.Models
 
         [Display(Name = "Image")]    
         public HttpPostedFileBase File { get; set; }
-
+        [Display(Name = "Link")]
+        public string UrlLink { get; set; }
         public string ImagePath { get; set; }
         public int CategoryId { get; set; }
         public SelectList CategoryList { get; set; }

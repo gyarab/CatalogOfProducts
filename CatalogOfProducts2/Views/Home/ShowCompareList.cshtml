@@ -42,7 +42,7 @@
             @foreach (var item in Model)
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                    @Html.DisplayFor(modelItem => item.ProductPrice) Kč
                 </td>
             }
         </tr>
@@ -53,8 +53,11 @@
             @foreach (var item in Model)
             {
                 <td>                
-                     <input type="button" class="btn btn-default" id="RemoveButton" value="Remove" 
-                     onclick="location.href='@Url.Action("RemoveFromCompareList", "Home",new {id = item.ProductId } )'" />                   
+                                       
+                    <p>
+                     @Html.ActionLink("Remove", "RemoveFromCompareList",new {id = item.ProductId })
+                    </p>
+
                 </td>
             }
         </tr>

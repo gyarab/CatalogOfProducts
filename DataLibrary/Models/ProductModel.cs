@@ -14,6 +14,7 @@ namespace DataLibrary.Models
         public int CategoryId { get; set; }
         public int ProductPrice { get; set; }
         public DateTime Date { get; set; }
+        public string UrlLink { get; set; }
 
     }
 }
